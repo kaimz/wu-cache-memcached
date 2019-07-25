@@ -1,11 +1,8 @@
 package com.wuwii;
 
-import com.wuwii.spring.Testw;
 import com.wuwii.spring.config.MemcachedConfig;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -15,7 +12,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = MemcachedConfig.class)
-@Import(MemcachedConfig.class)
 public class ApplicationTestw {
 
   //  @Autowired
@@ -31,10 +27,6 @@ public class ApplicationTestw {
 //        Assert.assertThat(memcachedClient.get(key), IsEqual.equalTo(value));
 //    }
 
-  @Test
-  public void test() {
-    System.out.println(testw);
-  }
 
 
 }

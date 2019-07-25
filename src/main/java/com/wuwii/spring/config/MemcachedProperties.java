@@ -7,7 +7,7 @@ import lombok.Data;
  * @date 2019-06-30 15:08
  */
 @Data
-class MemcachedProperties {
+public class MemcachedProperties {
 
   private String host;
 

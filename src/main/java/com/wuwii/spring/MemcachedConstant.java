@@ -6,5 +6,5 @@ package com.wuwii.spring;
  */
 public class MemcachedConstant {
 
-  public static final String DEFAULT_ADDRESS = "127.0.0.1:11211";
+  public static final String WU_MEMCACHED_PROPERTY_NAME = "WuMemcachedProperty";
 }

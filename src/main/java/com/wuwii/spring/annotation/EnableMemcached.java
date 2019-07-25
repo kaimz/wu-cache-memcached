@@ -1,6 +1,5 @@
-package com.wuwii.spring.annoation;
+package com.wuwii.spring.annotation;
 
-import com.wuwii.spring.MemcachedConstant;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -18,5 +17,12 @@ import org.springframework.context.annotation.Import;
 @Import(MemcachedConfigRegistrar.class)
 public @interface EnableMemcached {
 
-  String address() default MemcachedConstant.DEFAULT_ADDRESS;
+  String host() default "127.0.0.1";
+
+  int port() default 11211;
+
+  String username() default "";
+
+  String password() default "";
+
 }
