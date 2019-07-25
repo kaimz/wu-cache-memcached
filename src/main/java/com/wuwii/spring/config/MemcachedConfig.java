@@ -43,10 +43,4 @@ public class MemcachedConfig {
             .setAuthDescriptor(ad).build(), addresses);
   }
 
-  @Bean
-  public Testw testw() {
-    Testw testw = new Testw();
-    testw.setName("test");
-    return testw;
-  }
 }
