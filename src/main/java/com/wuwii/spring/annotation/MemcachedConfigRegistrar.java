@@ -18,6 +18,10 @@ public class MemcachedConfigRegistrar implements ImportBeanDefinitionRegistrar {
   @Override
   public void registerBeanDefinitions(AnnotationMetadata annotationMetadata,
       BeanDefinitionRegistry beanDefinitionRegistry) {
+    if (beanDefinitionRegistry.containsBeanDefinition(MemcachedProperties.class.getName())) {
+      // can not inject one more
+      return;
+    }
     AnnotationAttributes attributes = AnnotationAttributes.fromMap(annotationMetadata
         .getAnnotationAttributes(EnableMemcached.class.getName()));
     String host = attributes.getString("host");
@@ -29,17 +33,12 @@ public class MemcachedConfigRegistrar implements ImportBeanDefinitionRegistrar {
     propertySourcesPlaceholderPropertyValues.put("port", port);
     propertySourcesPlaceholderPropertyValues.put("username", username);
     propertySourcesPlaceholderPropertyValues.put("password", password);
-    /*BeanRegistrationUtil.registerBeanDefinitionIfNotExists(beanDefinitionRegistry, PropertySourcesPlaceholderConfigurer.class.getName(),
-        PropertySourcesPlaceholderConfigurer.class, propertySourcesPlaceholderPropertyValues);*/
     BeanRegistrationUtil
         .registerBeanDefinitionIfNotExists(beanDefinitionRegistry,
             MemcachedProperties.class.getName(),
             MemcachedProperties.class, propertySourcesPlaceholderPropertyValues);
-/*    BeanDefinitionBuilder memcachedBeanDefinition = BeanDefinitionBuilder
-        .genericBeanDefinition(MemcachedClient.class);
-    memcachedBeanDefinition.addPropertyValue("", "");
-    beanDefinitionRegistry
-        .registerBeanDefinition(MEMCACHED_NAME, memcachedBeanDefinition.getBeanDefinition());*/
+    BeanRegistrationUtil.registerBeanDefinitionIfNotExists(beanDefinitionRegistry,
+        MemcachedProcessor.class.getName(), MemcachedProcessor.class);
   }
 
 

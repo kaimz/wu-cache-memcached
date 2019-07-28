@@ -1,6 +1,5 @@
 package com.wuwii;
 
-import com.wuwii.spring.config.MemcachedConfig;
 import com.wuwii.spring.config.WuMemcached;
 import org.hamcrest.core.IsEqual;
 import org.junit.Assert;
@@ -15,7 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @date 2019-07-25 19:37
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {EnableMemCachedAnnotationTest.class, MemcachedConfig.class})
+@ContextConfiguration(classes = {EnableMemCachedAnnotationTest.class})
 public class MemcachedAnnoationTest {
 
   @Autowired(required = false)
