@@ -1,8 +1,6 @@
 package com.wuwii.spring.config;
 
 import java.io.IOException;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -19,10 +17,10 @@ public class MemcachedConfig {
    * @return MemcachedClient bean
    * @throws IOException connect memcached client fail
    */
-  @Bean
-  @Conditional(MemcachedCondition.class)
-  public WuMemcached wuMemcached(MemcachedProperties memcachedProperties)
-      throws IOException {
-    return WuMemcached.of(memcachedProperties);
-  }
+//  @Bean
+////  @Conditional(MemcachedCondition.class)
+////  public WuMemcached wuMemcached(MemcachedProperties memcachedProperties)
+////      throws IOException {
+////    return WuMemcached.of(memcachedProperties);
+////  }
 }

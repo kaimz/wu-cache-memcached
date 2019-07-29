@@ -1,5 +1,6 @@
 package com.wuwii.spring.config;
 
+import com.wuwii.spring.property.MemcachedProperties;
 import org.springframework.beans.BeansException;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;

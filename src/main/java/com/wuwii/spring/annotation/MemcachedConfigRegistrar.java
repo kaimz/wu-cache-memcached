@@ -1,6 +1,6 @@
 package com.wuwii.spring.annotation;
 
-import com.wuwii.spring.config.MemcachedProperties;
+import com.wuwii.spring.property.MemcachedProperties;
 import com.wuwii.spring.utils.BeanRegistrationUtil;
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.wuwii.spring.config;
+package com.wuwii.spring.property;
 
 import lombok.Data;
 

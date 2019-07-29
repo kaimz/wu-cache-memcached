@@ -1,4 +1,4 @@
-package com.wuwii;
+package com.wuwii.annotation;
 
 import com.wuwii.spring.annotation.EnableMemcached;
 import org.springframework.context.annotation.Configuration;

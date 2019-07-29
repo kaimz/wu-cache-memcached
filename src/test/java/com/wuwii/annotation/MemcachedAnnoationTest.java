@@ -1,7 +1,6 @@
-package com.wuwii;
+package com.wuwii.annotation;
 
-import com.wuwii.spring.config.MemcachedConfig;
-import com.wuwii.spring.config.WuMemcached;
+import com.wuwii.spring.property.WuMemcached;
 import org.hamcrest.core.IsEqual;
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,24 +11,24 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author KronChan
- * @date 2019-06-30 17:07
+ * @date 2019-07-25 19:37
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = MemcachedConfig.class)
-public class ApplicationTestw {
+@ContextConfiguration(classes = {EnableMemCachedAnnotationTest.class})
+public class MemcachedAnnoationTest {
 
-  @Autowired
+  @Autowired(required = false)
   private WuMemcached wuMemcached;
 
-
-  @Test(timeout = 2000L)
+  @Test
   public void testGetKey() {
+    if (wuMemcached == null) {
+      Assert.fail();
+    }
     String key = "test-key";
     String value = "wuwii";
     wuMemcached.set(key, 10, value);
     Assert.assertThat(wuMemcached.get(key), IsEqual.equalTo(value));
   }
-
-
 
 }

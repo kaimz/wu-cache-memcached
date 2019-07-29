@@ -1,7 +1,7 @@
 package com.wuwii.spring.annotation;
 
-import com.wuwii.spring.config.MemcachedProperties;
-import com.wuwii.spring.config.WuMemcached;
+import com.wuwii.spring.property.MemcachedProperties;
+import com.wuwii.spring.property.WuMemcached;
 import java.io.IOException;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanCreationException;

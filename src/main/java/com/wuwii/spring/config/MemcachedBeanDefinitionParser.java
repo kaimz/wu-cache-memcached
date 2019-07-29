@@ -1,6 +1,11 @@
 package com.wuwii.spring.config;
 
+import com.wuwii.spring.annotation.MemcachedProcessor;
+import com.wuwii.spring.property.MemcachedProperties;
+import com.wuwii.spring.utils.BeanRegistrationUtil;
+import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
+import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.xml.AbstractSingleBeanDefinitionParser;
 import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
@@ -32,4 +37,14 @@ public class MemcachedBeanDefinitionParser extends AbstractSingleBeanDefinitionP
     }
   }
 
+  @Override
+  protected void registerBeanDefinition(BeanDefinitionHolder definition,
+      BeanDefinitionRegistry registry) {
+    // 注册 properties
+    super.registerBeanDefinition(definition, registry);
+    // 在注册 properties 后, 注册 MemcachedProcessor 完成 WuMemcached 注册
+    BeanRegistrationUtil
+        .registerBeanDefinitionIfNotExists(registry, MemcachedProcessor.class.getName(),
+            MemcachedProcessor.class);
+  }
 }

@@ -1,4 +1,4 @@
-package com.wuwii.spring.config;
+package com.wuwii.spring.property;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
