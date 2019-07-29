@@ -39,6 +39,8 @@ public class MemcachedConfigRegistrar implements ImportBeanDefinitionRegistrar {
             MemcachedProperties.class, propertySourcesPlaceholderPropertyValues);
     BeanRegistrationUtil.registerBeanDefinitionIfNotExists(beanDefinitionRegistry,
         MemcachedProcessor.class.getName(), MemcachedProcessor.class);
+    BeanRegistrationUtil.registerBeanDefinitionIfNotExists(beanDefinitionRegistry,
+        MemcachedSourceProcessor.class.getName(), MemcachedSourceProcessor.class);
   }
 
 
