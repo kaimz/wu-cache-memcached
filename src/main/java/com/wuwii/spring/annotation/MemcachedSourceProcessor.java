@@ -3,6 +3,7 @@ package com.wuwii.spring.annotation;
 import com.wuwii.spring.property.WuMemcached;
 import java.lang.reflect.Field;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ReflectionUtils;
@@ -36,6 +37,10 @@ public class MemcachedSourceProcessor implements BeanPostProcessor {
       }
       ReflectionUtils.makeAccessible(field);
       WuMemcached wuMemcached = MemcachedProcessor.getWuMemcached();
+      if (wuMemcached == null) {
+        throw new NoSuchBeanDefinitionException(
+            String.format("Bean: [%s] is not found.", WuMemcached.class.getName()));
+      }
       ReflectionUtils.setField(field, bean, wuMemcached);
     }
   }

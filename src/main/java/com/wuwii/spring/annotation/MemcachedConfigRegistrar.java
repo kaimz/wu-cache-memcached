@@ -5,6 +5,7 @@ import com.wuwii.spring.utils.BeanRegistrationUtil;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import org.springframework.beans.factory.support.BeanDefinitionValidationException;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
@@ -18,9 +19,10 @@ public class MemcachedConfigRegistrar implements ImportBeanDefinitionRegistrar {
   @Override
   public void registerBeanDefinitions(AnnotationMetadata annotationMetadata,
       BeanDefinitionRegistry beanDefinitionRegistry) {
-    if (beanDefinitionRegistry.containsBeanDefinition(MemcachedProperties.class.getName())) {
-      // can not inject one more
-      return;
+    String memcachedBeanName = MemcachedProperties.class.getName();
+    if (beanDefinitionRegistry.containsBeanDefinition(memcachedBeanName)) {
+      throw new BeanDefinitionValidationException(String
+          .format("Bean: [%s] already in, could not create one more", memcachedBeanName));
     }
     AnnotationAttributes attributes = AnnotationAttributes.fromMap(annotationMetadata
         .getAnnotationAttributes(EnableMemcached.class.getName()));
@@ -42,6 +44,5 @@ public class MemcachedConfigRegistrar implements ImportBeanDefinitionRegistrar {
     BeanRegistrationUtil.registerBeanDefinitionIfNotExists(beanDefinitionRegistry,
         MemcachedSourceProcessor.class.getName(), MemcachedSourceProcessor.class);
   }
-
 
 }
