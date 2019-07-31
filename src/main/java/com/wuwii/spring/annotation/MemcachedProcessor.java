@@ -8,12 +8,13 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.core.PriorityOrdered;
 
 /**
  * @author KronChan
  * @date 2019-07-25 20:04
  */
-public class MemcachedProcessor implements BeanFactoryPostProcessor {
+public class MemcachedProcessor implements BeanFactoryPostProcessor, PriorityOrdered {
 
   @Getter
   private static WuMemcached wuMemcached;
@@ -32,5 +33,10 @@ public class MemcachedProcessor implements BeanFactoryPostProcessor {
           String.format("Create class [%s], while memcached connect error in [%s]",
               WuMemcached.class.getName(), properties), e);
     }
+  }
+
+  @Override
+  public int getOrder() {
+    return LOWEST_PRECEDENCE;
   }
 }

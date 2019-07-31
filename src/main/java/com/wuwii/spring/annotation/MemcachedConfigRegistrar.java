@@ -26,13 +26,11 @@ public class MemcachedConfigRegistrar implements ImportBeanDefinitionRegistrar {
     }
     AnnotationAttributes attributes = AnnotationAttributes.fromMap(annotationMetadata
         .getAnnotationAttributes(EnableMemcached.class.getName()));
-    String host = attributes.getString("host");
-    Integer port = (Integer) attributes.get("port");
+    String addresses = attributes.getString("addresses");
     String username = attributes.getString("username");
     String password = attributes.getString("password");
     Map<String, Object> propertySourcesPlaceholderPropertyValues = new HashMap<>();
-    propertySourcesPlaceholderPropertyValues.put("host", host);
-    propertySourcesPlaceholderPropertyValues.put("port", port);
+    propertySourcesPlaceholderPropertyValues.put("addresses", addresses);
     propertySourcesPlaceholderPropertyValues.put("username", username);
     propertySourcesPlaceholderPropertyValues.put("password", password);
     BeanRegistrationUtil
@@ -43,6 +41,8 @@ public class MemcachedConfigRegistrar implements ImportBeanDefinitionRegistrar {
         MemcachedProcessor.class.getName(), MemcachedProcessor.class);
     BeanRegistrationUtil.registerBeanDefinitionIfNotExists(beanDefinitionRegistry,
         MemcachedSourceProcessor.class.getName(), MemcachedSourceProcessor.class);
+   /* BeanRegistrationUtil.registerBeanDefinitionIfNotExists(beanDefinitionRegistry,
+        WuMemcachedManager.class.getName(), WuMemcachedManager.class);*/
   }
 
 }

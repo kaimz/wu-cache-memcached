@@ -17,9 +17,7 @@ import org.springframework.context.annotation.Import;
 @Import(MemcachedConfigRegistrar.class)
 public @interface EnableMemcached {
 
-  String host() default "127.0.0.1";
-
-  int port() default 11211;
+  String addresses() default "127.0.0.1:11211";
 
   String username() default "";
 

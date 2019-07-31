@@ -25,7 +25,7 @@ public class WuMemcached {
     String username = memcachedProperties.getUsername();
     String password = memcachedProperties.getPassword();
     List<InetSocketAddress> addresses = AddrUtil
-        .getAddresses(memcachedProperties.getHost() + ":" + memcachedProperties.getPort());
+        .getAddresses(memcachedProperties.getAddresses());
     if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
       return new WuMemcached(new BinaryConnectionFactory(), addresses);
     }
