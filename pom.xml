@@ -56,5 +56,14 @@
       <version>${junit.version}</version>
     </dependency>
   </dependencies>
-
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <!-- java 11 必须使用最新版 -->
+        <version>3.8.1</version>
+      </plugin>
+    </plugins>
+  </build>
 </project>
