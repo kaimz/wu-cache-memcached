@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.core.PriorityOrdered;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ReflectionUtils;
 
@@ -12,7 +13,7 @@ import org.springframework.util.ReflectionUtils;
  * @author KronChan
  * @date 2019-07-29 23:00
  */
-public class MemcachedSourceProcessor implements BeanPostProcessor {
+public class MemcachedSourceProcessor implements BeanPostProcessor, PriorityOrdered {
 
   @Override
   public Object postProcessBeforeInitialization(Object o, String s) throws BeansException {
@@ -43,5 +44,10 @@ public class MemcachedSourceProcessor implements BeanPostProcessor {
       }
       ReflectionUtils.setField(field, bean, wuMemcached);
     }
+  }
+
+  @Override
+  public int getOrder() {
+    return LOWEST_PRECEDENCE;
   }
 }

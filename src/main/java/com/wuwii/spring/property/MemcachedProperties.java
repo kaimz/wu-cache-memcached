@@ -9,9 +9,7 @@ import lombok.Data;
 @Data
 public class MemcachedProperties {
 
-  private String host;
-
-  private Integer port;
+  private String addresses;
 
   private String username;
 

@@ -24,18 +24,21 @@ public class MemcachedBeanDefinitionParser extends AbstractSingleBeanDefinitionP
 
   @Override
   protected void doParse(Element element, BeanDefinitionBuilder bean) {
-    String host = element.getAttribute("host");
-    String port = element.getAttribute("port");
+    String addresses = element.getAttribute("addresses");
     String username = element.getAttribute("username");
     String password = element.getAttribute("password");
-    bean.addPropertyValue("host", host);
-    bean.addPropertyValue("port", port);
+    bean.addPropertyValue("addresses", addresses);
     if (StringUtils.hasText(username)) {
       bean.addPropertyValue("username", username);
     }
     if (StringUtils.hasText(password)) {
       bean.addPropertyValue("password", password);
     }
+  }
+
+  @Override
+  protected boolean shouldGenerateId() {
+    return true;
   }
 
   @Override
