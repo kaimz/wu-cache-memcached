@@ -8,9 +8,12 @@ package com.wuwii.spring;
 import com.wuwii.spring.annotation.EnableMemcached;
 import com.wuwii.spring.annotation.WuMemcachedConfig;
 import com.wuwii.spring.config.WuMemcachedFactory;
+import org.hamcrest.core.Is;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache.ValueWrapper;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
@@ -20,22 +23,26 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = SpringCacheApplicationTest.class)
 @Configuration
 @ComponentScan("com.wuwii.spring")
-@EnableMemcached(addresses = "192.168.10.249:11211")
+@EnableMemcached(addresses = "192.168.10.249:11211,127.0.0.1:11211")
 public class SpringCacheApplicationTest {
 
   @Autowired
   private SpringCacheTest springCacheTest;
   @WuMemcachedConfig
   private WuMemcachedFactory memcached;
+  static final String VALUE = "wuwii";
+  private static final String KEY = "12";
 
   @Test
   public void testGet() {
-    System.out.println(springCacheTest.get("12"));
-    System.out.println(springCacheTest.get("12"));
+    Assert.assertThat(springCacheTest.get(KEY), Is.is(VALUE));
+    Assert.assertThat(springCacheTest.get(KEY), Is.is(VALUE));
   }
 
   @Test
-  public void test() {
-    System.out.println(memcached.get(12).get());
+  public void testFactoryGet() {
+    memcached.put(KEY, VALUE);
+    ValueWrapper valueWrapper = memcached.get(KEY);
+    Assert.assertThat(valueWrapper == null ? null : valueWrapper.get(), Is.is(VALUE));
   }
 }

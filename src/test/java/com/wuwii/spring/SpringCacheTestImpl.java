@@ -1,5 +1,7 @@
 package com.wuwii.spring;
 
+import static com.wuwii.spring.SpringCacheApplicationTest.VALUE;
+
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,6 @@ public class SpringCacheTestImpl implements SpringCacheTest {
   @Cacheable(key = "#p0")
   public String get(String key) {
     System.out.println("没走缓存");
-    return "wuwii";
+    return VALUE;
   }
 }
