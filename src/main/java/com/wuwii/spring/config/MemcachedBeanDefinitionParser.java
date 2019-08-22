@@ -2,6 +2,7 @@ package com.wuwii.spring.config;
 
 import com.wuwii.spring.annotation.MemcachedProcessor;
 import com.wuwii.spring.annotation.MemcachedSourceProcessor;
+import com.wuwii.spring.cache.WuMemcachedManager;
 import com.wuwii.spring.property.MemcachedProperties;
 import com.wuwii.spring.utils.BeanRegistrationUtil;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
@@ -52,5 +53,7 @@ public class MemcachedBeanDefinitionParser extends AbstractSingleBeanDefinitionP
             MemcachedProcessor.class);
     BeanRegistrationUtil.registerBeanDefinitionIfNotExists(registry,
         MemcachedSourceProcessor.class.getName(), MemcachedSourceProcessor.class);
+    BeanRegistrationUtil.registerBeanDefinitionIfNotExists(registry,
+        WuMemcachedManager.class.getName(), WuMemcachedManager.class);
   }
 }

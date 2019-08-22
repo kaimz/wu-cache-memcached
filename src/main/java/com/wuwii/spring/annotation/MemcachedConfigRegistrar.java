@@ -1,5 +1,6 @@
 package com.wuwii.spring.annotation;
 
+import com.wuwii.spring.cache.WuMemcachedManager;
 import com.wuwii.spring.property.MemcachedProperties;
 import com.wuwii.spring.utils.BeanRegistrationUtil;
 import java.util.HashMap;
@@ -41,8 +42,8 @@ public class MemcachedConfigRegistrar implements ImportBeanDefinitionRegistrar {
         MemcachedProcessor.class.getName(), MemcachedProcessor.class);
     BeanRegistrationUtil.registerBeanDefinitionIfNotExists(beanDefinitionRegistry,
         MemcachedSourceProcessor.class.getName(), MemcachedSourceProcessor.class);
-   /* BeanRegistrationUtil.registerBeanDefinitionIfNotExists(beanDefinitionRegistry,
-        WuMemcachedManager.class.getName(), WuMemcachedManager.class);*/
+    BeanRegistrationUtil.registerBeanDefinitionIfNotExists(beanDefinitionRegistry,
+        WuMemcachedManager.class.getName(), WuMemcachedManager.class);
   }
 
 }

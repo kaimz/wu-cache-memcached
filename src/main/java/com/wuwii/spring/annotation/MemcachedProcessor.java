@@ -1,7 +1,10 @@
 package com.wuwii.spring.annotation;
 
+import com.wuwii.spring.config.WuMemcachedFactory;
 import com.wuwii.spring.property.MemcachedProperties;
 import com.wuwii.spring.property.WuMemcached;
+import com.wuwii.spring.spi.WuMemcachedStartHelper;
+import com.wuwii.spring.utils.ServiceBootstrap;
 import java.io.IOException;
 import lombok.Getter;
 import org.springframework.beans.BeansException;
@@ -16,8 +19,11 @@ import org.springframework.core.PriorityOrdered;
  */
 public class MemcachedProcessor implements BeanFactoryPostProcessor, PriorityOrdered {
 
+  private static WuMemcachedStartHelper helper = ServiceBootstrap
+      .loadPrimary(WuMemcachedStartHelper.class);
+
   @Getter
-  private static WuMemcached wuMemcached;
+  private static WuMemcachedFactory wuMemcachedFactory;
 
   @Override
   public void postProcessBeanFactory(
@@ -26,8 +32,9 @@ public class MemcachedProcessor implements BeanFactoryPostProcessor, PriorityOrd
         .getBean(MemcachedProperties.class);
     // 根据 memcached properties 注册 WuMemcached,保证了注入的顺序
     try {
-      wuMemcached = WuMemcached.of(properties);
-      configurableListableBeanFactory.registerSingleton(WuMemcached.class.getName(), wuMemcached);
+      wuMemcachedFactory = helper.of(properties);
+      configurableListableBeanFactory
+          .registerSingleton(WuMemcached.class.getName(), wuMemcachedFactory);
     } catch (IOException e) {
       throw new BeanCreationException(
           String.format("Create class [%s], while memcached connect error in [%s]",

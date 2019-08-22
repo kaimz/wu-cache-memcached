@@ -1,7 +1,7 @@
 package com.wuwii.annotation;
 
 import com.wuwii.spring.annotation.WuMemcachedConfig;
-import com.wuwii.spring.property.WuMemcached;
+import com.wuwii.spring.config.WuMemcachedFactory;
 import org.hamcrest.core.IsEqual;
 import org.junit.Assert;
 import org.junit.Test;
@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class MemcachedAnnotationTest {
 
   @WuMemcachedConfig
-  private WuMemcached wuMemcached;
+  private WuMemcachedFactory wuMemcached;
 
   @Test
   public void testGetKey() {
@@ -27,8 +27,8 @@ public class MemcachedAnnotationTest {
     }
     String key = "test-key";
     String value = "wuwii";
-    wuMemcached.set(key, 10, value);
-    Assert.assertThat(wuMemcached.get(key), IsEqual.equalTo(value));
+    wuMemcached.put(key, value);
+    Assert.assertThat(wuMemcached.get(key).get(), IsEqual.equalTo(value));
   }
 
 }

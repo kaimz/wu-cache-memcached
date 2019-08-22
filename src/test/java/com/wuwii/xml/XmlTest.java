@@ -28,7 +28,7 @@ public class XmlTest {
     }
     String key = "test-key";
     String value = "wuwii";
-    wuMemcached.set(key, 10, value);
+    wuMemcached.put(key, value);
     Assert.assertThat(wuMemcached.get(key), IsEqual.equalTo(value));
   }
 
