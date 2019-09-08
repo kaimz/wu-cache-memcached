@@ -12,7 +12,6 @@ import net.spy.memcached.ConnectionFactoryBuilder;
 import net.spy.memcached.MemcachedClient;
 import net.spy.memcached.auth.AuthDescriptor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.cache.support.SimpleValueWrapper;
 
 /**
  * @author KronChan
@@ -20,9 +19,7 @@ import org.springframework.cache.support.SimpleValueWrapper;
  */
 public class WuMemcached implements WuMemcachedStartHelper {
 
-  private static final int TIMEOUT = 1000;
-
-  private static final String NAME_SPACE = "memcached";
+  private int timeout;
 
   private MemcachedClient memcachedClient;
 
@@ -35,6 +32,7 @@ public class WuMemcached implements WuMemcachedStartHelper {
     String password = memcachedProperties.getPassword();
     List<InetSocketAddress> addresses = AddrUtil
         .getAddresses(memcachedProperties.getAddresses());
+    this.timeout = timeout;
     if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
       return new WuMemcached(new BinaryConnectionFactory(), addresses);
     }
@@ -54,19 +52,8 @@ public class WuMemcached implements WuMemcachedStartHelper {
   }
 
   @Override
-  public String getName() {
-    return NAME_SPACE;
-  }
-
-  @Override
-  public Object getNativeCache() {
-    return this.memcachedClient;
-  }
-
-  @Override
-  public ValueWrapper get(Object key) {
-    Object o = memcachedClient.get(key.toString());
-    return o == null ? null : new SimpleValueWrapper(o);
+  public Object get(Object key) {
+    return memcachedClient.get(key.toString());
   }
 
   @Override
@@ -90,17 +77,17 @@ public class WuMemcached implements WuMemcachedStartHelper {
 
   @Override
   public void put(Object key, Object value) {
-    memcachedClient.add(key.toString(), TIMEOUT, value);
+    memcachedClient.add(key.toString(), timeout, value);
   }
 
   @Override
-  public ValueWrapper putIfAbsent(Object key, Object value) {
+  public Object putIfAbsent(Object key, Object value) {
     Object existValue = memcachedClient.get(key.toString());
-    if (existValue == null) {
+    if (existValue == null && value != null) {
       put(key, value);
-      return new SimpleValueWrapper(value);
+      return value;
     }
-    return new SimpleValueWrapper(existValue);
+    return existValue;
   }
 
   @Override

@@ -1,6 +1,5 @@
 package com.wuwii.spring.utils;
 
-import com.wuwii.spring.spi.WuMemcachedStartHelper;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -60,9 +59,4 @@ public class ServiceBootstrap {
     return list;
   }
 
-  public static void main(String[] args) {
-    WuMemcachedStartHelper wuMemcachedFactory = ServiceBootstrap
-        .loadPrimary(WuMemcachedStartHelper.class);
-    System.out.println(wuMemcachedFactory);
-  }
 }

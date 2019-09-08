@@ -23,4 +23,8 @@ public @interface EnableMemcached {
 
   String password() default "";
 
+  int timeout() default 24 * 60 * 1000;
+
+  boolean disableSpringCache() default true;
+
 }

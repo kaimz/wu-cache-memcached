@@ -35,6 +35,8 @@ public class MemcachedBeanDefinitionParser extends AbstractSingleBeanDefinitionP
     if (StringUtils.hasText(password)) {
       bean.addPropertyValue("password", password);
     }
+    bean.addPropertyValue("timeout", element.getAttribute("timeout"));
+    bean.addPropertyValue("disableSpringCache", element.getAttribute("disableSpringCache"));
   }
 
   @Override
@@ -47,13 +49,19 @@ public class MemcachedBeanDefinitionParser extends AbstractSingleBeanDefinitionP
       BeanDefinitionRegistry registry) {
     // 注册 properties
     super.registerBeanDefinition(definition, registry);
+
     // 在注册 properties 后, 注册 MemcachedProcessor 完成 WuMemcached 注册
     BeanRegistrationUtil
         .registerBeanDefinitionIfNotExists(registry, MemcachedProcessor.class.getName(),
             MemcachedProcessor.class);
     BeanRegistrationUtil.registerBeanDefinitionIfNotExists(registry,
         MemcachedSourceProcessor.class.getName(), MemcachedSourceProcessor.class);
-    BeanRegistrationUtil.registerBeanDefinitionIfNotExists(registry,
-        WuMemcachedManager.class.getName(), WuMemcachedManager.class);
+    String disableSpringCache = (String) definition.getBeanDefinition().getPropertyValues()
+        .getPropertyValue("disableSpringCache")
+        .getValue();
+    if (Boolean.parseBoolean(disableSpringCache)) {
+      BeanRegistrationUtil.registerBeanDefinitionIfNotExists(registry,
+          WuMemcachedManager.class.getName(), WuMemcachedManager.class);
+    }
   }
 }

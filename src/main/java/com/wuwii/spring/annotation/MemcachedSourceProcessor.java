@@ -37,12 +37,12 @@ public class MemcachedSourceProcessor implements BeanPostProcessor, PriorityOrde
       if (WuMemcachedConfig.class.isAssignableFrom(field.getType())) {
         return;
       }
-      ReflectionUtils.makeAccessible(field);
       WuMemcachedFactory wuMemcached = MemcachedProcessor.getWuMemcachedFactory();
       if (wuMemcached == null) {
         throw new NoSuchBeanDefinitionException(
             String.format("Bean: [%s] is not found.", WuMemcached.class.getName()));
       }
+      ReflectionUtils.makeAccessible(field);
       ReflectionUtils.setField(field, bean, wuMemcached);
     }
   }
