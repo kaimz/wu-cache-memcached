@@ -40,6 +40,7 @@ public class MemcachedProcessor implements BeanFactoryPostProcessor, PriorityOrd
           String.format("Create class [%s], while memcached connect error in [%s]",
               WuMemcached.class.getName(), properties), e);
     }
+    // todo 2019/9/1 设置 cache manager
   }
 
   @Override

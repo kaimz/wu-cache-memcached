@@ -13,7 +13,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.Cache.ValueWrapper;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
@@ -23,7 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = SpringCacheApplicationTest.class)
 @Configuration
 @ComponentScan("com.wuwii.spring")
-@EnableMemcached(addresses = "192.168.10.249:11211,127.0.0.1:11211")
+@EnableMemcached
 public class SpringCacheApplicationTest {
 
   @Autowired
@@ -42,7 +41,7 @@ public class SpringCacheApplicationTest {
   @Test
   public void testFactoryGet() {
     memcached.put(KEY, VALUE);
-    ValueWrapper valueWrapper = memcached.get(KEY);
-    Assert.assertThat(valueWrapper == null ? null : valueWrapper.get(), Is.is(VALUE));
+    Object value = memcached.get(KEY);
+    Assert.assertThat(value, Is.is(VALUE));
   }
 }

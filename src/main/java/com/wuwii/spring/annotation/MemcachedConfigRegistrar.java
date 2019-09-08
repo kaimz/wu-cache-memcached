@@ -34,6 +34,10 @@ public class MemcachedConfigRegistrar implements ImportBeanDefinitionRegistrar {
     propertySourcesPlaceholderPropertyValues.put("addresses", addresses);
     propertySourcesPlaceholderPropertyValues.put("username", username);
     propertySourcesPlaceholderPropertyValues.put("password", password);
+    boolean disableSpringCache = attributes.getBoolean("disableSpringCache");
+    propertySourcesPlaceholderPropertyValues
+        .put("disableSpringCache", disableSpringCache);
+    propertySourcesPlaceholderPropertyValues.put("timeout", attributes.get("timeout"));
     BeanRegistrationUtil
         .registerBeanDefinitionIfNotExists(beanDefinitionRegistry,
             MemcachedProperties.class.getName(),
@@ -42,8 +46,9 @@ public class MemcachedConfigRegistrar implements ImportBeanDefinitionRegistrar {
         MemcachedProcessor.class.getName(), MemcachedProcessor.class);
     BeanRegistrationUtil.registerBeanDefinitionIfNotExists(beanDefinitionRegistry,
         MemcachedSourceProcessor.class.getName(), MemcachedSourceProcessor.class);
-    BeanRegistrationUtil.registerBeanDefinitionIfNotExists(beanDefinitionRegistry,
-        WuMemcachedManager.class.getName(), WuMemcachedManager.class);
+    if (disableSpringCache) {
+      BeanRegistrationUtil.registerBeanDefinitionIfNotExists(beanDefinitionRegistry,
+          WuMemcachedManager.class.getName(), WuMemcachedManager.class);
+    }
   }
-
 }

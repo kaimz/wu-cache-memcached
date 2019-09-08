@@ -32,6 +32,24 @@
           </xsd:documentation>
         </xsd:annotation>
       </xsd:attribute>
+      <xsd:attribute name="timeout" type="xsd:int" default="1440000">
+        <xsd:annotation>
+          <xsd:documentation>
+            <![CDATA[
+                           The memcached cache timeout.
+                        ]]>
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="disableSpringCache" type="xsd:boolean" default="true">
+        <xsd:annotation>
+          <xsd:documentation>
+            <![CDATA[
+                          disable Spring cache annotation
+                        ]]>
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
     </xsd:complexType>
   </xsd:element>
 </xsd:schema>
