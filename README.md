@@ -1,11 +1,42 @@
-**项目学习使用**
+#### 项目学习使用
 
 主要是学习 memcached 在 spring 项目的灵活配置和使用。
 
-目地：
+目的：
 
 1. 掌握 spring 扩展配置的方法技巧
 2. memcached 缓存在配置在 spring cache 中
+
+##### By
+
+* java 8
+
+* spring context 4.3
+* spymemcached 2.7
+
+##### 了解
+
+看代码之前需要了解的功课
+
+* spring bean 引用组件
+  1. bean config
+  2. `ImportBeanDefinitionRegistrar`
+  3. [xml namespace schema extension](https://docs.spring.io/spring/docs/4.2.x/spring-framework-reference/html/xml-custom.html)
+
+* spring 扩展
+  1. **BeanPostProcessor**： 初始化bean之前和之后，每次bean 初始化都会调用，参考`AutowiredAnnotationBeanPostProcessor`
+  2. **BeanFactoryPostProcessor**: 初始化bean 之前，在 `BeanPostProcessor` 之前，可用于更改bean 的属性，只会执行一次。
+  3. **InstantiationAwareBeanPostProcessor**：实例化bean 之前和之后，每个bean 实例化都会执行一次。
+  4. **FactoryBean**:  自己控制生成bean。
+  5. **Aware**：感知，回调其 set 方法将相应的参数设置给该 bean。
+  6. **InitialingBean**: 初始化结束
+  7. **DisposableBean**：bean 销毁
+
+* spring cache:
+  1. **CacheManager**，参考 `EhCacheCacheManager` 实现。
+  2. **Cache**, 参考 `RedisCache` 实现。
+
+#### Usage
 
 
 
