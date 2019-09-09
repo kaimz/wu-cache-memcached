@@ -1,0 +1,50 @@
+language: java
+jdk:
+  - openjdk8
+
+notification:
+  email:
+    recipients:
+      - kronchan1@gmail.com
+    on_success: always
+    on_failure: always
+
+#branches:
+#  only:
+#    - master
+
+services:
+  #  - docker
+  - memcached
+
+#script:
+#  - docker run --name my-memcache -d -p 11211:11211  memcached memcached -m 64
+
+before_script:
+  - echo "MAVEN_OPTS='-Xms1024m -Xmx3072m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=384m'" > ~/.mavenrc
+
+#before_install:
+#  - pip install --user codecov
+
+after_success:
+  #  - mvn clean test jacoco:report coveralls:report
+  - mvn cobertura:cobertura
+  - bash <(curl -s https://codecov.io/bash)
+
+env:
+  global:
+    - PROJECT_NAME="wu-cache-memcached"
+
+#addons:
+#  coverity_scan:
+#    project:
+#      name: "wu-cache-memcached"
+#      description: "Travis CI build result"
+#    notification_email: kronchan1@gmail.com
+#    build_command_prepend: "mvn clean"
+#    build_command: "mvn compile"
+#    branch_pattern: feature-travis
+
+cache:
+  directories:
+    - $HOME/.m2
