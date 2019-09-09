@@ -1,5 +1,6 @@
 package com.wuwii.spring.config;
 
+import com.wuwii.spring.property.MemcachedKey;
 import java.util.concurrent.Callable;
 
 /**
@@ -14,7 +15,7 @@ public interface WuMemcachedFactory {
    * @param key key
    * @return if key not exist return null
    */
-  Object get(Object key);
+  Object get(MemcachedKey key);
 
   /**
    * get from cache
@@ -24,7 +25,7 @@ public interface WuMemcachedFactory {
    * @param <T> value class
    * @return if key not exist return null
    */
-  <T> T get(Object key, Class<T> type);
+  <T> T get(MemcachedKey key, Class<T> type);
 
   /**
    * get from cache
@@ -34,24 +35,24 @@ public interface WuMemcachedFactory {
    * @param <T> value class
    * @return value
    */
-  <T> T get(Object key, Callable<T> valueLoader);
+  <T> T get(MemcachedKey key, Callable<T> valueLoader);
 
   /**
    * put key value
    */
-  void put(Object key, Object value);
+  void put(MemcachedKey key, Object value);
 
   /**
    * Put while the cache does not exist this key
    *
    * @return key's value
    */
-  Object putIfAbsent(Object key, Object value);
+  Object putIfAbsent(MemcachedKey key, Object value);
 
   /**
    * delete key from cache
    */
-  void evict(Object key);
+  void evict(MemcachedKey key);
 
   /**
    * clear cache

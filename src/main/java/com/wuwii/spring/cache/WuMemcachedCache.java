@@ -1,6 +1,7 @@
 package com.wuwii.spring.cache;
 
 import com.wuwii.spring.config.WuMemcachedFactory;
+import com.wuwii.spring.property.MemcachedKey;
 import java.util.concurrent.Callable;
 import org.springframework.cache.support.AbstractValueAdaptingCache;
 import org.springframework.cache.support.SimpleValueWrapper;
@@ -73,7 +74,7 @@ public class WuMemcachedCache extends AbstractValueAdaptingCache {
     wuMemcachedFactory.clear();
   }
 
-  private String resolveKey(String key) {
-    return name + "." + key;
+  private MemcachedKey resolveKey(String key) {
+    return new MemcachedKey(key, name);
   }
 }

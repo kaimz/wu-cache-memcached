@@ -1,6 +1,7 @@
 package com.wuwii.xml;
 
 import com.wuwii.spring.annotation.WuMemcachedConfig;
+import com.wuwii.spring.property.MemcachedKey;
 import com.wuwii.spring.property.WuMemcached;
 import org.hamcrest.core.IsEqual;
 import org.junit.Assert;
@@ -26,7 +27,7 @@ public class XmlTest {
     if (wuMemcached == null) {
       Assert.fail();
     }
-    String key = "test-key";
+    MemcachedKey key = new MemcachedKey("test-key");
     String value = "wuwii";
     wuMemcached.put(key, value);
     Assert.assertThat(wuMemcached.get(key), IsEqual.equalTo(value));

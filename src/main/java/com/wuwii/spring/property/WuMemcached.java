@@ -52,18 +52,18 @@ public class WuMemcached implements WuMemcachedStartHelper {
   }
 
   @Override
-  public Object get(Object key) {
+  public Object get(MemcachedKey key) {
     return memcachedClient.get(key.toString());
   }
 
   @Override
-  public <T> T get(Object key, Class<T> type) {
+  public <T> T get(MemcachedKey key, Class<T> type) {
     Object o = memcachedClient.get(key.toString());
     return o == null ? null : (T) o;
   }
 
   @Override
-  public <T> T get(Object key, Callable<T> valueLoader) {
+  public <T> T get(MemcachedKey key, Callable<T> valueLoader) {
     Object value = memcachedClient.get(key.toString());
     if (value == null) {
       try {
@@ -76,12 +76,12 @@ public class WuMemcached implements WuMemcachedStartHelper {
   }
 
   @Override
-  public void put(Object key, Object value) {
+  public void put(MemcachedKey key, Object value) {
     memcachedClient.add(key.toString(), timeout, value);
   }
 
   @Override
-  public Object putIfAbsent(Object key, Object value) {
+  public Object putIfAbsent(MemcachedKey key, Object value) {
     Object existValue = memcachedClient.get(key.toString());
     if (existValue == null && value != null) {
       put(key, value);
@@ -91,7 +91,7 @@ public class WuMemcached implements WuMemcachedStartHelper {
   }
 
   @Override
-  public void evict(Object key) {
+  public void evict(MemcachedKey key) {
     memcachedClient.delete(key.toString());
   }
 
