@@ -1,3 +1,9 @@
+### spymemcached in spring
+
+[![Build Status](https://travis-ci.com/kaimz/wu-cache-memcached.svg?branch=master)](https://travis-ci.com/kaimz/wu-cache-memcached)
+[![codecov](https://codecov.io/gh/kaimz/wu-cache-memcached/branch/master/graph/badge.svg)](https://codecov.io/gh/kaimz/wu-cache-memcached)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/895344dda9ec4b69af29b56514b9334a)](https://www.codacy.com/manual/kaimz/wu-cache-memcached?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=kaimz/wu-cache-memcached&amp;utm_campaign=Badge_Grade)
+
 #### 项目学习使用
 
 主要是学习 memcached 在 spring 项目的灵活配置和使用。
@@ -38,7 +44,8 @@
 
 #### Usage
 
-
+#### 扩展
+1. 可以使用 spi机制,实现 `WuMemcachedStartHelper` 接口,可以对接上 `XMemcached`.
 
 备注：
 
