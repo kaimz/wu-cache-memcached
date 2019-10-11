@@ -1,0 +1,55 @@
+package com.wuwii.spring.annotation;
+
+import com.wuwii.spring.cache.WuMemcachedManager;
+import com.wuwii.spring.property.MemcachedProperties;
+import com.wuwii.spring.utils.BeanRegistrationUtil;
+import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import org.springframework.beans.factory.support.BeanDefinitionValidationException;
+import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
+import org.springframework.core.annotation.AnnotationAttributes;
+import org.springframework.core.type.AnnotationMetadata;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @author KronChan
+ * @date 2019-07-02 19:53
+ */
+public class MemcachedConfigRegistrar implements ImportBeanDefinitionRegistrar {
+
+  @Override
+  public void registerBeanDefinitions(AnnotationMetadata annotationMetadata,
+      BeanDefinitionRegistry beanDefinitionRegistry) {
+    String memcachedBeanName = MemcachedProperties.class.getName();
+    if (beanDefinitionRegistry.containsBeanDefinition(memcachedBeanName)) {
+      throw new BeanDefinitionValidationException(String
+          .format("Bean: [%s] already in, could not create one more", memcachedBeanName));
+    }
+    AnnotationAttributes attributes = AnnotationAttributes.fromMap(annotationMetadata
+        .getAnnotationAttributes(EnableMemcached.class.getName()));
+    String addresses = attributes.getString("addresses");
+    String username = attributes.getString("username");
+    String password = attributes.getString("password");
+    Map<String, Object> propertySourcesPlaceholderPropertyValues = new HashMap<>();
+    propertySourcesPlaceholderPropertyValues.put("addresses", addresses);
+    propertySourcesPlaceholderPropertyValues.put("username", username);
+    propertySourcesPlaceholderPropertyValues.put("password", password);
+    boolean disableSpringCache = attributes.getBoolean("disableSpringCache");
+    propertySourcesPlaceholderPropertyValues
+        .put("disableSpringCache", disableSpringCache);
+    propertySourcesPlaceholderPropertyValues.put("timeout", attributes.get("timeout"));
+    BeanRegistrationUtil
+        .registerBeanDefinitionIfNotExists(beanDefinitionRegistry,
+            MemcachedProperties.class.getName(),
+            MemcachedProperties.class, propertySourcesPlaceholderPropertyValues);
+    BeanRegistrationUtil.registerBeanDefinitionIfNotExists(beanDefinitionRegistry,
+        MemcachedProcessor.class.getName(), MemcachedProcessor.class);
+    BeanRegistrationUtil.registerBeanDefinitionIfNotExists(beanDefinitionRegistry,
+        MemcachedSourceProcessor.class.getName(), MemcachedSourceProcessor.class);
+    if (disableSpringCache) {
+      BeanRegistrationUtil.registerBeanDefinitionIfNotExists(beanDefinitionRegistry,
+          WuMemcachedManager.class.getName(), WuMemcachedManager.class);
+    }
+  }
+}

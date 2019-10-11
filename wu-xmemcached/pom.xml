@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>wu-cache-memcached</artifactId>
+        <groupId>com.wuwii</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>wu-xmemcached</artifactId>
+    <dependencies>
+      <dependency>
+        <artifactId>wu-cache-core</artifactId>
+        <groupId>com.wuwii</groupId>
+      </dependency>
+        <dependency>
+            <groupId>com.googlecode.xmemcached</groupId>
+            <artifactId>xmemcached</artifactId>
+        </dependency>
+      <dependency>
+        <artifactId>spring-test</artifactId>
+        <groupId>org.springframework</groupId>
+      </dependency>
+      <dependency>
+        <artifactId>junit</artifactId>
+        <groupId>junit</groupId>
+        <scope>test</scope>
+        </dependency>
+    </dependencies>
+  <packaging>jar</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+
+</project>
