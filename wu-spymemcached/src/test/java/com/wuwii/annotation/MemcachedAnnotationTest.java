@@ -3,6 +3,7 @@ package com.wuwii.annotation;
 import com.wuwii.spring.annotation.WuMemcachedConfig;
 import com.wuwii.spring.config.WuMemcachedFactory;
 import com.wuwii.spring.property.MemcachedKey;
+import com.wuwii.spring.property.SimpleMemcachedKey;
 import org.hamcrest.core.IsEqual;
 import org.junit.Assert;
 import org.junit.Test;
@@ -26,7 +27,7 @@ public class MemcachedAnnotationTest {
     if (wuMemcached == null) {
       Assert.fail();
     }
-    MemcachedKey key = new MemcachedKey("test-key");
+    MemcachedKey key = new SimpleMemcachedKey("test-key");
     String value = "wuwii";
     wuMemcached.put(key, value);
     Assert.assertThat(wuMemcached.get(key), IsEqual.equalTo(value));

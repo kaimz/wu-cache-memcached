@@ -3,14 +3,13 @@ package com.wuwii.spring.annotation;
 import com.wuwii.spring.cache.WuMemcachedManager;
 import com.wuwii.spring.property.MemcachedProperties;
 import com.wuwii.spring.utils.BeanRegistrationUtil;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionValidationException;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author KronChan
@@ -43,10 +42,13 @@ public class MemcachedConfigRegistrar implements ImportBeanDefinitionRegistrar {
         .registerBeanDefinitionIfNotExists(beanDefinitionRegistry,
             MemcachedProperties.class.getName(),
             MemcachedProperties.class, propertySourcesPlaceholderPropertyValues);
+    // 注册到 spring
     BeanRegistrationUtil.registerBeanDefinitionIfNotExists(beanDefinitionRegistry,
         MemcachedProcessor.class.getName(), MemcachedProcessor.class);
+    // 自定义设置属性方式
     BeanRegistrationUtil.registerBeanDefinitionIfNotExists(beanDefinitionRegistry,
-        MemcachedSourceProcessor.class.getName(), MemcachedSourceProcessor.class);
+        MemcachedBindingPostProcessor.class.getName(), MemcachedBindingPostProcessor.class);
+    // spring cache 管理
     if (disableSpringCache) {
       BeanRegistrationUtil.registerBeanDefinitionIfNotExists(beanDefinitionRegistry,
           WuMemcachedManager.class.getName(), WuMemcachedManager.class);

@@ -6,8 +6,10 @@ import com.wuwii.spring.spi.WuMemcachedStartHelper;
 import com.wuwii.spring.utils.ServiceBootstrap;
 import java.io.IOException;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanCreationException;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.core.PriorityOrdered;
@@ -16,7 +18,9 @@ import org.springframework.core.PriorityOrdered;
  * @author KronChan
  * @date 2019-07-25 20:04
  */
-public class MemcachedProcessor implements BeanFactoryPostProcessor, PriorityOrdered {
+@Slf4j
+public class MemcachedProcessor implements BeanFactoryPostProcessor, InitializingBean,
+    PriorityOrdered {
 
   private static WuMemcachedStartHelper helper = ServiceBootstrap
       .loadPrimary(WuMemcachedStartHelper.class);
@@ -24,12 +28,18 @@ public class MemcachedProcessor implements BeanFactoryPostProcessor, PriorityOrd
   @Getter
   private static WuMemcachedFactory wuMemcachedFactory;
 
+  private ConfigurableListableBeanFactory configurableListableBeanFactory;
+
   @Override
   public void postProcessBeanFactory(
       ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
-    MemcachedProperties properties = configurableListableBeanFactory
-        .getBean(MemcachedProperties.class);
-    // 根据 memcached properties 注册 WuMemcached,保证了注入的顺序
+    this.configurableListableBeanFactory = configurableListableBeanFactory;
+  }
+
+  protected void processMemcachedFactory(
+      ConfigurableListableBeanFactory configurableListableBeanFactory,
+      MemcachedProperties properties) {
+    log.debug("WuMemcached connect param: {}", properties);
     try {
       wuMemcachedFactory = helper.of(properties);
       configurableListableBeanFactory
@@ -44,5 +54,13 @@ public class MemcachedProcessor implements BeanFactoryPostProcessor, PriorityOrd
   @Override
   public int getOrder() {
     return LOWEST_PRECEDENCE;
+  }
+
+  @Override
+  public void afterPropertiesSet() throws Exception {
+    // 根据 memcached properties 注册 WuMemcached,保证了注入的顺序
+    MemcachedProperties properties = configurableListableBeanFactory
+        .getBean(MemcachedProperties.class);
+    processMemcachedFactory(configurableListableBeanFactory, properties);
   }
 }

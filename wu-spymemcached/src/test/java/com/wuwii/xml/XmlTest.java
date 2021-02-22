@@ -2,6 +2,7 @@ package com.wuwii.xml;
 
 import com.wuwii.spring.annotation.WuMemcachedConfig;
 import com.wuwii.spring.property.MemcachedKey;
+import com.wuwii.spring.property.SimpleMemcachedKey;
 import com.wuwii.spring.property.WuSpyMemcached;
 import org.hamcrest.core.IsEqual;
 import org.junit.Assert;
@@ -24,13 +25,13 @@ public class XmlTest {
 
   @Test(timeout = 2000L)
   public void testGetKey() {
-      if (wuSpyMemcached == null) {
+    if (wuSpyMemcached == null) {
       Assert.fail();
     }
-    MemcachedKey key = new MemcachedKey("test-key");
+    MemcachedKey key = new SimpleMemcachedKey("test-key");
     String value = "wuwii";
-      wuSpyMemcached.put(key, value);
-      Assert.assertThat(wuSpyMemcached.get(key), IsEqual.equalTo(value));
+    wuSpyMemcached.put(key, value);
+    Assert.assertThat(wuSpyMemcached.get(key), IsEqual.equalTo(value));
   }
 
 }

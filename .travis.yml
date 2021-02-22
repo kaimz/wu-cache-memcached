@@ -5,7 +5,7 @@ jdk:
 notification:
   email:
     recipients:
-      - kronchan1@gmail.com
+      - zhangk@qq.com
     on_success: always
     on_failure: always
 
@@ -17,8 +17,9 @@ services:
   #  - docker
   - memcached
 
-#script:
-#  - docker run --name my-memcache -d -p 11211:11211  memcached memcached -m 64
+script:
+  - mvn clean
+  - mvn compile
 
 before_script:
   - echo "MAVEN_OPTS='-Xms1024m -Xmx3072m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=384m'" > ~/.mavenrc
