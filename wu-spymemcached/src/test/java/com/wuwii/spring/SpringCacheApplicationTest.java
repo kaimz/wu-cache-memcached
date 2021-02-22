@@ -9,6 +9,7 @@ import com.wuwii.spring.annotation.EnableMemcached;
 import com.wuwii.spring.annotation.WuMemcachedConfig;
 import com.wuwii.spring.config.WuMemcachedFactory;
 import com.wuwii.spring.property.MemcachedKey;
+import com.wuwii.spring.property.SimpleMemcachedKey;
 import org.hamcrest.core.Is;
 import org.junit.Assert;
 import org.junit.Test;
@@ -31,8 +32,8 @@ public class SpringCacheApplicationTest {
   @WuMemcachedConfig
   private WuMemcachedFactory memcached;
   static final String VALUE = "wuwii";
-  private static String KEY = "12";
-  private static final MemcachedKey MEMCACHED_KEY = new MemcachedKey(KEY);
+  private final static String KEY = "12";
+  private static final MemcachedKey MEMCACHED_KEY = new SimpleMemcachedKey(KEY);
 
 
   @Test

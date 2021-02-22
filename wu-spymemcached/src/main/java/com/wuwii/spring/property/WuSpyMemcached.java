@@ -34,7 +34,7 @@ public class WuSpyMemcached implements WuMemcachedStartHelper {
     String password = memcachedProperties.getPassword();
     List<InetSocketAddress> addresses = AddrUtil
         .getAddresses(memcachedProperties.getAddresses());
-    this.timeout = timeout;
+    this.timeout = memcachedProperties.getTimeout();
     if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
       return new WuSpyMemcached(new BinaryConnectionFactory(), addresses);
     }

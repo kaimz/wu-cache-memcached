@@ -1,11 +1,13 @@
 package com.wuwii.spring.utils;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-
-import java.util.Map;
-import java.util.Objects;
+import org.springframework.util.ReflectionUtils;
 
 public class BeanRegistrationUtil {
 
@@ -45,6 +47,30 @@ public class BeanRegistrationUtil {
 
     return true;
   }
+
+  public static boolean registerBeanDefinitionIfNotExists(BeanDefinitionRegistry registry,
+      Object bean) {
+    Class<?> beanClass = bean.getClass();
+    String beanName = beanClass.getName();
+    Map<String, Object> beanProperty = objToMap(bean);
+    return registerBeanDefinitionIfNotExists(registry, beanName, beanClass, beanProperty);
+  }
+
+  private static Map<String, Object> objToMap(Object object) {
+    Class<?> beanClass = object.getClass();
+    Field[] fields = beanClass.getDeclaredFields();
+    Map<String, Object> map = new HashMap<>(fields.length);
+    for (Field field : fields) {
+      ReflectionUtils.makeAccessible(field);
+      Object value = ReflectionUtils.getField(field, object);
+      if (value == null) {
+        continue;
+      }
+      map.put(field.getName(), value);
+    }
+    return map;
+  }
+
 
 
 }

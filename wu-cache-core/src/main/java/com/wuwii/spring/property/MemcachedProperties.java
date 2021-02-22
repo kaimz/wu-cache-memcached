@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class MemcachedProperties {
 
-  private String addresses;
+  private String addresses = "127.0.0.1:11211";
 
   private String username;
 

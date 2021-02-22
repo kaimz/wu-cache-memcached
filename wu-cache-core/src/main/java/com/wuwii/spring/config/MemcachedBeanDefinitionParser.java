@@ -1,7 +1,7 @@
 package com.wuwii.spring.config;
 
+import com.wuwii.spring.annotation.MemcachedBindingPostProcessor;
 import com.wuwii.spring.annotation.MemcachedProcessor;
-import com.wuwii.spring.annotation.MemcachedSourceProcessor;
 import com.wuwii.spring.cache.WuMemcachedManager;
 import com.wuwii.spring.property.MemcachedProperties;
 import com.wuwii.spring.utils.BeanRegistrationUtil;
@@ -55,7 +55,7 @@ public class MemcachedBeanDefinitionParser extends AbstractSingleBeanDefinitionP
         .registerBeanDefinitionIfNotExists(registry, MemcachedProcessor.class.getName(),
             MemcachedProcessor.class);
     BeanRegistrationUtil.registerBeanDefinitionIfNotExists(registry,
-        MemcachedSourceProcessor.class.getName(), MemcachedSourceProcessor.class);
+        MemcachedBindingPostProcessor.class.getName(), MemcachedBindingPostProcessor.class);
     String disableSpringCache = (String) definition.getBeanDefinition().getPropertyValues()
         .getPropertyValue("disableSpringCache")
         .getValue();

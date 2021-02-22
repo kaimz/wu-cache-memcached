@@ -1,7 +1,6 @@
 package com.wuwii.spring.config;
 
 import com.wuwii.spring.property.MemcachedKey;
-
 import java.util.concurrent.Callable;
 
 /**
@@ -23,7 +22,6 @@ public interface WuMemcachedFactory {
    *
    * @param key key
    * @param type value type
-   * @param <T> value class
    * @return if key not exist return null
    */
   <T> T get(MemcachedKey key, Class<T> type);
@@ -33,7 +31,6 @@ public interface WuMemcachedFactory {
    *
    * @param key key
    * @param valueLoader if key not exist,call this value loader
-   * @param <T> value class
    * @return value
    */
   <T> T get(MemcachedKey key, Callable<T> valueLoader);

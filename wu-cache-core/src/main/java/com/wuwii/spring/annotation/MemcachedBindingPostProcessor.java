@@ -1,6 +1,7 @@
 package com.wuwii.spring.annotation;
 
 import com.wuwii.spring.config.WuMemcachedFactory;
+import java.lang.reflect.Field;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -8,13 +9,12 @@ import org.springframework.core.PriorityOrdered;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ReflectionUtils;
 
-import java.lang.reflect.Field;
-
 /**
+ * 后置处理器
  * @author KronChan
  * @date 2019-07-29 23:00
  */
-public class MemcachedSourceProcessor implements BeanPostProcessor, PriorityOrdered {
+public class MemcachedBindingPostProcessor implements BeanPostProcessor, PriorityOrdered {
 
   @Override
   public Object postProcessBeforeInitialization(Object o, String s) throws BeansException {

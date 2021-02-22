@@ -1,0 +1,8 @@
+wu:
+  memcached:
+    enable: true
+    username: "root"
+    password: "4534"
+
+logging:
+  level: debug
