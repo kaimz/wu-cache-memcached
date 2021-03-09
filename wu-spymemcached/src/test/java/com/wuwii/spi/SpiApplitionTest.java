@@ -1,7 +1,8 @@
 package com.wuwii.spi;
 
-import com.wuwii.spring.annotation.EnableMemcached;
 import com.wuwii.spring.annotation.MemcachedProcessor;
+import com.wuwii.spring.handle.annotation.EnableMemcached;
+import java.lang.reflect.Field;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,8 +12,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.ReflectionUtils;
-
-import java.lang.reflect.Field;
 
 /**
  * @author KronChan

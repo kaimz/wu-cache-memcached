@@ -1,4 +1,4 @@
-package com.wuwii.spring.config;
+package com.wuwii.spring.handle.schemas;
 
 import com.wuwii.spring.annotation.MemcachedBindingPostProcessor;
 import com.wuwii.spring.annotation.MemcachedProcessor;

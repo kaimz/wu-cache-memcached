@@ -1,15 +1,13 @@
 package com.wuwii.spring.boot;
 
-import com.wuwii.spring.annotation.MemcachedConfigRegistrar;
+import com.wuwii.spring.handle.annotation.MemcachedConfigRegistrar;
 import com.wuwii.spring.property.MemcachedProperties;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 
 /**
  * @author kai.zhang
@@ -23,18 +21,16 @@ import org.springframework.core.annotation.Order;
     havingValue = "true", matchIfMissing = true)
 public class WuSpyMemcachedAutoConfiguration {
 
-  @Bean
-  @ConditionalOnBean(MemcachedPropertiesForConfig.class)
-  @Order
-  public ConfigMemcachedProcessor configMemcachedProcessor(
-      MemcachedPropertiesForConfig memcachedPropertiesForConfig) {
-    return new ConfigMemcachedProcessor(memcachedPropertiesForConfig);
+  private final MemcachedPropertiesForConfig memcachedPropertiesForConfig;
+
+  public WuSpyMemcachedAutoConfiguration(
+      final MemcachedPropertiesForConfig memcachedPropertiesForConfig) {
+    this.memcachedPropertiesForConfig = memcachedPropertiesForConfig;
   }
 
-  @Configuration
-  protected static class MemcachedConnectionConfiguration {
-
-
+  @Bean
+  public ConfigMemcachedProcessor configMemcachedProcessor() {
+    return new ConfigMemcachedProcessor(memcachedPropertiesForConfig);
   }
 
 

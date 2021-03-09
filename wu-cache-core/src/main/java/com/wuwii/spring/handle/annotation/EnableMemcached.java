@@ -1,12 +1,11 @@
-package com.wuwii.spring.annotation;
-
-import org.springframework.context.annotation.Import;
+package com.wuwii.spring.handle.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import org.springframework.context.annotation.Import;
 
 /**
  * @author KronChan
@@ -15,7 +14,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Import(MemcachedConfigRegistrar.class)
+@Import(MemecachedAnnotationImportSelector.class)
 public @interface EnableMemcached {
 
   String addresses() default "127.0.0.1:11211";
