@@ -5,9 +5,9 @@ package com.wuwii.x;
  * @date 2019-08-21 21:55
  */
 
-import com.wuwii.spring.annotation.EnableMemcached;
 import com.wuwii.spring.annotation.WuMemcachedConfig;
 import com.wuwii.spring.config.WuMemcachedFactory;
+import com.wuwii.spring.handle.annotation.EnableMemcached;
 import com.wuwii.spring.property.WithPrefixMemcachedKey;
 import org.hamcrest.core.Is;
 import org.junit.Assert;

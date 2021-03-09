@@ -58,9 +58,9 @@ public class MemcachedProcessor implements BeanFactoryPostProcessor, Initializin
 
   @Override
   public void afterPropertiesSet() throws Exception {
-    // 根据 memcached properties 注册 WuMemcached,保证了注入的顺序
+   /* // 根据 memcached properties 注册 WuMemcached,保证了注入的顺序
     MemcachedProperties properties = configurableListableBeanFactory
         .getBean(MemcachedProperties.class);
-    processMemcachedFactory(configurableListableBeanFactory, properties);
+    processMemcachedFactory(configurableListableBeanFactory, properties);*/
   }
 }

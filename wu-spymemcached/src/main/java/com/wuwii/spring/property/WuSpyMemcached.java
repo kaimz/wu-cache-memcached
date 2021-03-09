@@ -1,5 +1,6 @@
 package com.wuwii.spring.property;
 
+import com.wuwii.spring.config.WuMemcachedFactory;
 import com.wuwii.spring.spi.WuMemcachedStartHelper;
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -19,7 +20,7 @@ import org.springframework.core.Ordered;
  * @author KronChan
  * @date 2019-07-04 19:57
  */
-public class WuSpyMemcached implements WuMemcachedStartHelper {
+public class WuSpyMemcached implements WuMemcachedStartHelper, WuMemcachedFactory {
 
   private int timeout;
 

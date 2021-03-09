@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
  * @author KronChan
  * @date 2019/10/11 12:40 下午
  */
-public class WuXmemcached implements WuMemcachedStartHelper {
+public class WuXmemcached implements WuMemcachedStartHelper, WuMemcachedFactory {
 
   private static final Logger log = LoggerFactory.getLogger(WuXmemcached.class);
   private int timeout;

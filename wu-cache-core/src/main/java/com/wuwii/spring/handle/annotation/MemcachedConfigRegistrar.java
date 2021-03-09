@@ -1,5 +1,9 @@
-package com.wuwii.spring.annotation;
+package com.wuwii.spring.handle.annotation;
 
+import static com.wuwii.spring.property.MemcacheBeanConstants.MEMCACHED_PROPERTY_BEAN_NAME;
+
+import com.wuwii.spring.annotation.MemcachedBindingPostProcessor;
+import com.wuwii.spring.annotation.MemcachedProcessor;
 import com.wuwii.spring.cache.WuMemcachedManager;
 import com.wuwii.spring.property.MemcachedProperties;
 import com.wuwii.spring.utils.BeanRegistrationUtil;
@@ -20,10 +24,10 @@ public class MemcachedConfigRegistrar implements ImportBeanDefinitionRegistrar {
   @Override
   public void registerBeanDefinitions(AnnotationMetadata annotationMetadata,
       BeanDefinitionRegistry beanDefinitionRegistry) {
-    String memcachedBeanName = MemcachedProperties.class.getName();
-    if (beanDefinitionRegistry.containsBeanDefinition(memcachedBeanName)) {
+    if (beanDefinitionRegistry.containsBeanDefinition(MEMCACHED_PROPERTY_BEAN_NAME)) {
       throw new BeanDefinitionValidationException(String
-          .format("Bean: [%s] already in, could not create one more", memcachedBeanName));
+          .format("Bean: [%s] already in, could not create one more",
+              MEMCACHED_PROPERTY_BEAN_NAME));
     }
     AnnotationAttributes attributes = AnnotationAttributes.fromMap(annotationMetadata
         .getAnnotationAttributes(EnableMemcached.class.getName()));
@@ -40,7 +44,7 @@ public class MemcachedConfigRegistrar implements ImportBeanDefinitionRegistrar {
     propertySourcesPlaceholderPropertyValues.put("timeout", attributes.get("timeout"));
     BeanRegistrationUtil
         .registerBeanDefinitionIfNotExists(beanDefinitionRegistry,
-            MemcachedProperties.class.getName(),
+            MEMCACHED_PROPERTY_BEAN_NAME,
             MemcachedProperties.class, propertySourcesPlaceholderPropertyValues);
     // 注册到 spring
     BeanRegistrationUtil.registerBeanDefinitionIfNotExists(beanDefinitionRegistry,
