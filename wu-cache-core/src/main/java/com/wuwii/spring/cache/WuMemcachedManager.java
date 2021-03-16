@@ -1,16 +1,15 @@
 package com.wuwii.spring.cache;
 
-import com.wuwii.spring.annotation.WuMemcachedConfig;
-import com.wuwii.spring.config.WuMemcachedFactory;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.EnableCaching;
-
+import com.wuwii.property.WuMemcachedFactory;
+import com.wuwii.spring.core.WuMemcachedConfig;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
 
 /**
  * @author KronChan

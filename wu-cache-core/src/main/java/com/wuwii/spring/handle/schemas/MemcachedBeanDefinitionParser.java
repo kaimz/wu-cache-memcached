@@ -1,14 +1,17 @@
 package com.wuwii.spring.handle.schemas;
 
-import com.wuwii.spring.annotation.MemcachedBindingPostProcessor;
-import com.wuwii.spring.annotation.MemcachedProcessor;
+import com.wuwii.property.MemcacheBeanConstants;
+import com.wuwii.property.MemcachedProperties;
 import com.wuwii.spring.cache.WuMemcachedManager;
-import com.wuwii.spring.property.MemcachedProperties;
+import com.wuwii.spring.core.MemcachedPostProcessor;
 import com.wuwii.spring.utils.BeanRegistrationUtil;
+import org.springframework.beans.factory.BeanDefinitionStoreException;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
+import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.xml.AbstractSingleBeanDefinitionParser;
+import org.springframework.beans.factory.xml.ParserContext;
 import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
 
@@ -39,9 +42,15 @@ public class MemcachedBeanDefinitionParser extends AbstractSingleBeanDefinitionP
     bean.addPropertyValue("disableSpringCache", element.getAttribute("disableSpringCache"));
   }
 
-  @Override
+/*  @Override
   protected boolean shouldGenerateId() {
-    return true;
+    return false;
+  }*/
+
+  @Override
+  protected String resolveId(Element element, AbstractBeanDefinition definition,
+      ParserContext parserContext) throws BeanDefinitionStoreException {
+    return MemcacheBeanConstants.MEMCACHED_PROPERTY_BEAN_NAME;
   }
 
   @Override
@@ -50,12 +59,10 @@ public class MemcachedBeanDefinitionParser extends AbstractSingleBeanDefinitionP
     // 注册 properties
     super.registerBeanDefinition(definition, registry);
 
-    // 在注册 properties 后, 注册 MemcachedProcessor 完成 WuMemcached 注册
+    // 在注册 properties 后, 注册 MemcachedPostProcessor 完成 WuMemcached 注册
     BeanRegistrationUtil
-        .registerBeanDefinitionIfNotExists(registry, MemcachedProcessor.class.getName(),
-            MemcachedProcessor.class);
-    BeanRegistrationUtil.registerBeanDefinitionIfNotExists(registry,
-        MemcachedBindingPostProcessor.class.getName(), MemcachedBindingPostProcessor.class);
+        .registerBeanDefinitionIfNotExists(registry, MemcacheBeanConstants.POST_PROCESSOR_BEAN_NAME,
+            MemcachedPostProcessor.class);
     String disableSpringCache = (String) definition.getBeanDefinition().getPropertyValues()
         .getPropertyValue("disableSpringCache")
         .getValue();

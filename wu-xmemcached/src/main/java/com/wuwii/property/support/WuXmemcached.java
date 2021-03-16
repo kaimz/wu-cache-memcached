@@ -1,7 +1,9 @@
-package com.wuwii.spring.property;
+package com.wuwii.property.support;
 
-import com.wuwii.spring.config.WuMemcachedFactory;
-import com.wuwii.spring.spi.WuMemcachedStartHelper;
+import com.wuwii.property.MemcachedKey;
+import com.wuwii.property.MemcachedProperties;
+import com.wuwii.property.WuMemcachedFactory;
+import com.wuwii.spi.WuMemcachedStartHelper;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.HashMap;

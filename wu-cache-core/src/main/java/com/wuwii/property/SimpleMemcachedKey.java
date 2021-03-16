@@ -1,4 +1,4 @@
-package com.wuwii.spring.property;
+package com.wuwii.property;
 
 /**
  * @author kai.zhang

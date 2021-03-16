@@ -9,7 +9,7 @@ import org.springframework.core.type.AnnotationMetadata;
  */
 public class MemcachedConfigPropertiesImportSelector implements ImportSelector {
 
-  private static final String[] IMPORTS = {ConfigMemcachedProcessor.class.getName()};
+  private static final String[] IMPORTS = {ConfigMemcachedPostProcessor.class.getName()};
 
   @Override
   public String[] selectImports(AnnotationMetadata importingClassMetadata) {
