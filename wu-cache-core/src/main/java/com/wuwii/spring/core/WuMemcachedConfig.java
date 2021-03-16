@@ -1,4 +1,4 @@
-package com.wuwii.spring.annotation;
+package com.wuwii.spring.core;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

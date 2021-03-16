@@ -1,6 +1,5 @@
-package com.wuwii.spring.config;
+package com.wuwii.property;
 
-import com.wuwii.spring.property.MemcachedKey;
 import java.util.concurrent.Callable;
 
 /**

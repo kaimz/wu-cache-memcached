@@ -1,6 +1,6 @@
 package com.wuwii.spi;
 
-import com.wuwii.spring.property.WuSpyMemcached;
+import com.wuwii.property.support.WuSpyMemcached;
 
 /**
  * @author KronChan

@@ -1,7 +1,7 @@
 package com.wuwii.spring.boot;
 
+import com.wuwii.property.MemcachedProperties;
 import com.wuwii.spring.handle.annotation.MemcachedConfigRegistrar;
-import com.wuwii.spring.property.MemcachedProperties;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -29,8 +29,8 @@ public class WuSpyMemcachedAutoConfiguration {
   }
 
   @Bean
-  public ConfigMemcachedProcessor configMemcachedProcessor() {
-    return new ConfigMemcachedProcessor(memcachedPropertiesForConfig);
+  public ConfigMemcachedPostProcessor configMemcachedProcessor() {
+    return new ConfigMemcachedPostProcessor(memcachedPropertiesForConfig);
   }
 
 

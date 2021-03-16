@@ -1,7 +1,7 @@
-package com.wuwii.spring.spi;
+package com.wuwii.spi;
 
-import com.wuwii.spring.config.WuMemcachedFactory;
-import com.wuwii.spring.property.MemcachedProperties;
+import com.wuwii.property.MemcachedProperties;
+import com.wuwii.property.WuMemcachedFactory;
 import java.io.IOException;
 import org.springframework.core.PriorityOrdered;
 

@@ -1,7 +1,7 @@
 package com.wuwii.spring.cache;
 
-import com.wuwii.spring.config.WuMemcachedFactory;
-import com.wuwii.spring.property.WithPrefixMemcachedKey;
+import com.wuwii.property.WithPrefixMemcachedKey;
+import com.wuwii.property.WuMemcachedFactory;
 import java.util.concurrent.Callable;
 import org.springframework.cache.support.AbstractValueAdaptingCache;
 import org.springframework.cache.support.SimpleValueWrapper;

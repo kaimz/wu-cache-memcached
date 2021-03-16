@@ -1,10 +1,13 @@
-package com.wuwii.spring.annotation;
+package com.wuwii.spring.core;
 
-import com.wuwii.spring.config.WuMemcachedFactory;
+import com.wuwii.property.MemcacheBeanConstants;
+import com.wuwii.property.WuMemcachedFactory;
 import java.lang.reflect.Field;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.core.PriorityOrdered;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ReflectionUtils;
@@ -14,7 +17,10 @@ import org.springframework.util.ReflectionUtils;
  * @author KronChan
  * @date 2019-07-29 23:00
  */
-public class MemcachedBindingPostProcessor implements BeanPostProcessor, PriorityOrdered {
+public class MemcachedBindingPostProcessor implements BeanPostProcessor, BeanFactoryPostProcessor,
+    PriorityOrdered {
+
+  private WuMemcachedFactory wuMemcached;
 
   @Override
   public Object postProcessBeforeInitialization(Object o, String s) throws BeansException {
@@ -37,7 +43,6 @@ public class MemcachedBindingPostProcessor implements BeanPostProcessor, Priorit
       if (WuMemcachedConfig.class.isAssignableFrom(field.getType())) {
         return;
       }
-      WuMemcachedFactory wuMemcached = MemcachedProcessor.getWuMemcachedFactory();
       if (wuMemcached == null) {
         throw new NoSuchBeanDefinitionException(
                 String.format("Bean: [%s] is not found.", WuMemcachedFactory.class.getName()));
@@ -50,5 +55,12 @@ public class MemcachedBindingPostProcessor implements BeanPostProcessor, Priorit
   @Override
   public int getOrder() {
     return LOWEST_PRECEDENCE;
+  }
+
+  @Override
+  public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory)
+      throws BeansException {
+    this.wuMemcached = beanFactory
+        .getBean(MemcacheBeanConstants.WU_FACTORY_BEAN_NAME, WuMemcachedFactory.class);
   }
 }

@@ -1,9 +1,10 @@
 package com.wuwii.spring.config;
 
-import com.wuwii.spring.property.MemcacheBeanConstants;
-import com.wuwii.spring.property.MemcachedKey;
-import com.wuwii.spring.property.MemcachedProperties;
-import com.wuwii.spring.spi.WuMemcachedStartHelper;
+import com.wuwii.property.MemcacheBeanConstants;
+import com.wuwii.property.MemcachedKey;
+import com.wuwii.property.MemcachedProperties;
+import com.wuwii.property.WuMemcachedFactory;
+import com.wuwii.spi.WuMemcachedStartHelper;
 import com.wuwii.spring.utils.BeanObtainUtil;
 import com.wuwii.spring.utils.ServiceBootstrap;
 import java.util.concurrent.Callable;
@@ -25,7 +26,7 @@ public class MemcachedClient implements InitializingBean, BeanFactoryAware, WuMe
   /**
    * 启动类
    */
-  private final static WuMemcachedStartHelper START_HELPER = ServiceBootstrap
+  private static WuMemcachedStartHelper START_HELPER = ServiceBootstrap
       .loadPrimary(WuMemcachedStartHelper.class);
   /**
    * 执行工厂

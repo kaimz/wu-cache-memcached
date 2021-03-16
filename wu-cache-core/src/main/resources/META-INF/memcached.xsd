@@ -45,7 +45,7 @@
         <xsd:annotation>
           <xsd:documentation>
             <![CDATA[
-                          disable Spring cache annotation
+                          Disable Spring cache annotation
                         ]]>
           </xsd:documentation>
         </xsd:annotation>

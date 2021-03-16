@@ -1,9 +1,9 @@
 package com.wuwii.annotation;
 
-import com.wuwii.spring.annotation.WuMemcachedConfig;
-import com.wuwii.spring.config.WuMemcachedFactory;
-import com.wuwii.spring.property.MemcachedKey;
-import com.wuwii.spring.property.SimpleMemcachedKey;
+import com.wuwii.property.MemcachedKey;
+import com.wuwii.property.SimpleMemcachedKey;
+import com.wuwii.property.WuMemcachedFactory;
+import com.wuwii.spring.core.WuMemcachedConfig;
 import org.hamcrest.core.IsEqual;
 import org.junit.Assert;
 import org.junit.Test;
