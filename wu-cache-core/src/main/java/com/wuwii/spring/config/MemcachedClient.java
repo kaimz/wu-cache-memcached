@@ -65,7 +65,9 @@ public class MemcachedClient implements InitializingBean, BeanFactoryAware, WuMe
 
   @Override
   public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-    this.beanFactory = beanFactory;
+    if (this.beanFactory == null) {
+      this.beanFactory = beanFactory;
+    }
   }
 
   @Override
