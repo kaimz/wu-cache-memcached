@@ -28,7 +28,8 @@ public class SpringCacheApplicationTest {
 
   static final String VALUE = "wuwii";
   private static String KEY = "12";
-  private static final WithPrefixMemcachedKey MEMCACHED_KEY = new WithPrefixMemcachedKey(KEY);
+  private static final WithPrefixMemcachedKey MEMCACHED_KEY = new WithPrefixMemcachedKey("test",
+      KEY);
   @Autowired
   private SpringCacheTest springCacheTest;
   @WuMemcachedConfig
