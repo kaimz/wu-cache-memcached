@@ -1,5 +1,7 @@
 package com.wuwii.spring.utils;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 
@@ -8,6 +10,8 @@ import org.springframework.beans.factory.NoSuchBeanDefinitionException;
  * @date 2021-03-09 19:19
  */
 public class BeanObtainUtil {
+
+  private static final Logger logger = Logger.getLogger(BeanObtainUtil.class.getName());
 
   private BeanObtainUtil() {
   }
@@ -20,6 +24,9 @@ public class BeanObtainUtil {
     try {
       return beanFactory.getBean(name, type);
     } catch (NoSuchBeanDefinitionException ex) {
+      if (logger.isLoggable(Level.WARNING)) {
+        logger.warning("Can not find bean:" + name);
+      }
       return null;
     }
   }
