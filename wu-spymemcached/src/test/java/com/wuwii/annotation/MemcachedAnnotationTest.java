@@ -31,6 +31,7 @@ public class MemcachedAnnotationTest {
     String value = "wuwii";
     wuMemcached.put(key, value);
     Assert.assertThat(wuMemcached.get(key), IsEqual.equalTo(value));
+    wuMemcached.evict(key);
   }
 
 }

@@ -4,6 +4,7 @@ import com.wuwii.property.MemcacheBeanConstants;
 import com.wuwii.property.WuMemcachedFactory;
 import java.lang.reflect.Field;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -19,6 +20,8 @@ import org.springframework.util.ReflectionUtils;
  */
 public class MemcachedBindingPostProcessor implements BeanPostProcessor, BeanFactoryPostProcessor,
     PriorityOrdered {
+
+  private BeanFactory beanFactory;
 
   private WuMemcachedFactory wuMemcached;
 
@@ -40,12 +43,16 @@ public class MemcachedBindingPostProcessor implements BeanPostProcessor, BeanFac
       if (annotation == null) {
         continue;
       }
-      if (WuMemcachedConfig.class.isAssignableFrom(field.getType())) {
+      if (!WuMemcachedFactory.class.isAssignableFrom(field.getType())) {
         return;
       }
       if (wuMemcached == null) {
-        throw new NoSuchBeanDefinitionException(
-                String.format("Bean: [%s] is not found.", WuMemcachedFactory.class.getName()));
+        this.wuMemcached = beanFactory
+            .getBean(MemcacheBeanConstants.WU_FACTORY_BEAN_NAME, WuMemcachedFactory.class);
+        if (wuMemcached == null) {
+          throw new NoSuchBeanDefinitionException(
+              String.format("Bean: [%s] is not found.", WuMemcachedFactory.class.getName()));
+        }
       }
       ReflectionUtils.makeAccessible(field);
       ReflectionUtils.setField(field, bean, wuMemcached);
@@ -60,7 +67,6 @@ public class MemcachedBindingPostProcessor implements BeanPostProcessor, BeanFac
   @Override
   public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory)
       throws BeansException {
-    this.wuMemcached = beanFactory
-        .getBean(MemcacheBeanConstants.WU_FACTORY_BEAN_NAME, WuMemcachedFactory.class);
+    this.beanFactory = beanFactory;
   }
 }
