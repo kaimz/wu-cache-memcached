@@ -1,6 +1,7 @@
 package com.wuwii.spi;
 
-import com.wuwii.spring.core.MemcachedPostProcessor;
+import com.wuwii.property.WuMemcachedFactory;
+import com.wuwii.spring.config.MemcachedClient;
 import com.wuwii.spring.handle.annotation.EnableMemcached;
 import java.lang.reflect.Field;
 import org.junit.Assert;
@@ -25,13 +26,13 @@ import org.springframework.util.ReflectionUtils;
 public class SpiApplitionTest {
 
   @Autowired
-  private MemcachedPostProcessor memcachedPostProcessor;
+  private WuMemcachedFactory wuMemcachedFactory;
 
   @Test
   public void testSpi() {
-    Field field = ReflectionUtils.findField(MemcachedPostProcessor.class, "helper");
+    Field field = ReflectionUtils.findField(MemcachedClient.class, "START_HELPER");
     ReflectionUtils.makeAccessible(field);
-    Object helper = ReflectionUtils.getField(field, memcachedPostProcessor);
+    Object helper = ReflectionUtils.getField(field, wuMemcachedFactory);
     Assert.assertTrue(helper instanceof WuSpyMemcachedSpiTest);
   }
 }
