@@ -1,7 +1,0 @@
-wu:
-  memcached:
-    enable: true
-
-
-logging:
-  level: debug

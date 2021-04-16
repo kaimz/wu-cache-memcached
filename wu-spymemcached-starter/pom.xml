@@ -20,7 +20,6 @@
     <dependency>
       <groupId>com.wuwii</groupId>
       <artifactId>wu-spymemcached</artifactId>
-      <version>${wu-spymemcached.version}</version>
     </dependency>
   </dependencies>
 </project>

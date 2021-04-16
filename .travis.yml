@@ -19,7 +19,8 @@ services:
 
 script:
   - mvn clean
-  - mvn compile
+  #  - mvn compile
+  - mvn install
 
 before_script:
   - echo "MAVEN_OPTS='-Xms1024m -Xmx3072m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=384m'" > ~/.mavenrc
