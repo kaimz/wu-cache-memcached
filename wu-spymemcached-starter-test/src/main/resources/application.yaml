@@ -3,6 +3,6 @@ wu:
     enable: true
     #    username: "root"
     #    password: "4534"
-    addresses: 188.188.2.17:11211
+    addresses: 127.0.0.1:11211
 logging:
   level: debug
