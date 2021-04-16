@@ -3,5 +3,5 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:wu="http://www.wuwii.com/index/wu"
   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.wuwii.com/index/wu http://www.wuwii.com/index/wu.xsd">
   <!-- 配置 memcached 属性，我使用默认配置 127.0.0.1:11211 -->
-  <wu:memcached addresses="188.188.2.17:11211"/>
+  <wu:memcached addresses="127.0.0.1:11211"/>
 </beans>
