@@ -12,9 +12,8 @@
     <module>wu-spymemcached</module>
     <module>wu-cache-core</module>
     <module>wu-xmemcached</module>
-    <module>wu-spymemcached-starter</module>
     <module>wu-cache-core-starter</module>
-    <module>wu-cache-memcached-simple</module>
+    <module>wu-spymemcached-starter</module>
     <module>wu-spymemcached-starter-test</module>
   </modules>
   <properties>
@@ -92,6 +91,11 @@
       </dependency>
       <dependency>
         <groupId>com.wuwii</groupId>
+        <artifactId>wu-spymemcached</artifactId>
+        <version>${wu-spymemcached.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.wuwii</groupId>
         <artifactId>wu-xmemcached</artifactId>
         <version>${wu-xmemcached.version}</version>
       </dependency>
@@ -99,6 +103,11 @@
         <groupId>com.wuwii</groupId>
         <artifactId>wu-cache-core-starter</artifactId>
         <version>${wu-cache-core-starter.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.wuwii</groupId>
+        <artifactId>wu-spymemcached-starter</artifactId>
+        <version>${wu-spymemcached-starter.version}</version>
       </dependency>
       <dependency>
         <groupId>ch.qos.logback</groupId>
